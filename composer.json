@@ -1,0 +1,25 @@
+{
+    "name": "bgaze/php-dotenv",
+    "type": "library",
+    "description": "A simple and standalone PHP parser for DotEnv files",
+    "keywords": [
+        "dotenv",
+        "parser",
+        "php"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bgaze",
+            "email": "benjamin@bgaze.fr"
+        }
+    ],
+    "require": {
+        "php": "^5.3.3 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bgaze\\Dotenv\\": "src"
+        }
+    }
+}
