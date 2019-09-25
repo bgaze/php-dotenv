@@ -1,6 +1,6 @@
 # php-dotenv
 
-This library is a simple and standalone DotEnv files parse for PHP 5.6+
+This library is a simple and standalone DotEnv files parser for PHP 5.6+
 
 ## Installation
 
@@ -10,26 +10,29 @@ Simply install the library using composer:
 composer require bgaze/php-dotenv
 ```
 
-## Basic usage
+## Usage
 
-To quickly parse a Dotenv file, use the provided `load` helper.
+To quickly parse a Dotenv file, use the `load` helper.  
 An `UnexpectedValueException` will be raised if the file is invalid. 
 
 ```php
 use Bgaze\Dotenv\Parser as Dotenv;
 
-var_dump(Dotenv::load('path/to/dotenv/file')->toArray());
+try {
+    var_dump(Dotenv::load('path/to/dotenv/file')->toArray());
+} catch (\Exception $e) {
+    echo "<pre>{$e}</pre>";
+}
 ```
 
-You can also define defaults values and/or create PHP constants for your application configuration:
+You can use fluently most a available methods to manipulate your configuration:
 
 ```php
-Dotenv::load('path/to/dotenv/file')
-    ->defaults(['MY_VAR' => 'a default value'])
-    ->define();
+Dotenv::load('path/to/dotenv/file')   // Load a dotenv file
+    ->defaults([ /* ... */ ])         // Set some default values
+    ->trim()                          // Remove empty vars.
+    ->define();                       // Create PHP constants.
 ```
-
-## Advanced usage
 
 If you want to get parsing errors, instanciate the parser manually:
 
@@ -141,7 +144,7 @@ public function errors();
 
 **parse:**
 
-Reset parser and parse provided dotenv file.
+Reset parser then parse provided dotenv file.
 
 ```php
 /**
