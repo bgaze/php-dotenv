@@ -19,7 +19,9 @@ An `UnexpectedValueException` will be raised if the file is invalid.
 use Bgaze\Dotenv\Parser as Dotenv;
 
 try {
-    var_dump(Dotenv::load('path/to/dotenv/file')->toArray());
+    $dotenv = Dotenv::load('path/to/dotenv/file');
+    var_dump($dotenv->toArray());
+    var_dump($dotenv->get('A_KEY', 'a-default-value'));
 } catch (\Exception $e) {
     echo "<pre>{$e}</pre>";
 }
@@ -60,6 +62,19 @@ Instantiate a Dotenv parser, parse provided file and throw an exception if inval
  * @throws \UnexpectedValueException
  */
 public static function load($path); 
+```
+
+**get:**
+
+Retrieve a value by its key.
+
+```php
+/**
+* @param string $key The key to find
+* @param mixed $default A default value if the key doesn't exists
+* @return mixed
+ */
+public function get($key, $default = null);
 ```
 
 **toArray:**

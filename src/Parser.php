@@ -72,6 +72,17 @@ class Parser {
     ############################################################################
 
     /**
+     * Retrieve a value by its key.
+     * 
+     * @param string $key The key to find
+     * @param mixed $default A default value if the key doesn't exists
+     * @return mixed
+     */
+    public function get($key, $default = null) {
+        return isset($this->content[$key]) ? $this->content[$key] : $default;
+    }
+
+    /**
      * Get parsed content as an array.
      * 
      * @return array
