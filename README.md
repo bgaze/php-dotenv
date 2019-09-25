@@ -34,7 +34,7 @@ Dotenv::load('path/to/dotenv/file')   // Load a dotenv file
     ->define();                       // Create PHP constants.
 ```
 
-If you want to get parsing errors, instanciate the parser manually:
+To access to parsing errors, instanciate the parser manually:
 
 ```php
 $dotenv = new Dotenv('path/to/dotenv/file');
