@@ -150,7 +150,7 @@ class Parser {
     }
 
     /**
-     * Get doentenv file parsing errors
+     * Get Dotenv file parsing errors
      * 
      * @return array
      */

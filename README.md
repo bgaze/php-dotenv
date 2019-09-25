@@ -133,7 +133,7 @@ public function valid();
 
 **errors:**
 
-Get doentenv file parsing errors
+Get Dotenv file parsing errors
 
 ```php
 /**
