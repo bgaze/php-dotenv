@@ -45,6 +45,7 @@ class Parser {
     }
 
     /**
+     * Instantiate a dotenv parser, parse provided file and throw an exception if invalid.
      * 
      * @param type $path
      * @return \Bgaze\Dotenv\Parser
@@ -161,7 +162,7 @@ class Parser {
     ############################################################################
 
     /**
-     * Parse a dotenv file.
+     * Reset parser and parse provided dotenv file.
      * 
      * @param string $path Path oh the file to parse
      */
