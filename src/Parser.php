@@ -3,7 +3,7 @@
 namespace Bgaze\Dotenv;
 
 /**
- * A simple dotenv parser for PHP.
+ * A simple and standalone DotEnv files parser for PHP 5.6+
  *
  * @author Bgaze <benjamin@bgaze.fr>
  */
@@ -45,7 +45,7 @@ class Parser {
     }
 
     /**
-     * Instantiate a dotenv parser, parse provided file and throw an exception if invalid.
+     * Instantiate a Dotenv parser, parse provided file and throw an exception if invalid.
      * 
      * @param type $path
      * @return \Bgaze\Dotenv\Parser
@@ -141,7 +141,7 @@ class Parser {
     ############################################################################
 
     /**
-     * Check if errors occurs while parsing doentenv file
+     * Check if errors occurs while parsing the Dotenv file
      * 
      * @return boolean
      */
@@ -162,7 +162,7 @@ class Parser {
     ############################################################################
 
     /**
-     * Reset parser and parse provided dotenv file.
+     * Reset parser then parse provided Dotenv file.
      * 
      * @param string $path Path oh the file to parse
      */
@@ -172,7 +172,7 @@ class Parser {
         $this->content = [];
         $this->errors = [];
 
-        // Read the dotenv file line by line.
+        // Read the Dotenv file line by line.
         $handle = fopen($path, 'r');
         while (($line = fgets($handle))) {
             // Trim line then parse it.
@@ -186,7 +186,7 @@ class Parser {
     }
 
     /**
-     * Parse a dotenv file line
+     * Parse a Dotenv file line
      * 
      * @param string $line The line to parse
      */
@@ -226,7 +226,7 @@ class Parser {
     }
 
     /**
-     * Parse an unquoted dotenv line value.
+     * Parse an unquoted Dotenv line value.
      * 
      * @param string $value The line value
      * @return mixed 
@@ -263,7 +263,7 @@ class Parser {
     }
 
     /**
-     * Parse a simple or double quoted  dotenv line value.
+     * Parse a simple or double quoted Dotenv line value.
      * 
      * @param string $value The string to parse
      * @return string The final string value.

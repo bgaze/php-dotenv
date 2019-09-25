@@ -50,7 +50,7 @@ if ($dotenv->valid()) {
 
 **load:**
 
-Instantiate a dotenv parser, parse provided file and throw an exception if invalid.
+Instantiate a Dotenv parser, parse provided file and throw an exception if invalid.
 
 ```php
 /**
@@ -122,7 +122,7 @@ public function defaults(array $defaults);
 
 **valid:**
 
-Check if errors occurs while parsing doentenv file
+Check if errors occurs while parsing the Dotenv file
 
 ```php
 /**
@@ -144,7 +144,7 @@ public function errors();
 
 **parse:**
 
-Reset parser then parse provided dotenv file.
+Reset parser then parse provided Dotenv file.
 
 ```php
 /**
