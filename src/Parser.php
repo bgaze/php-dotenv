@@ -93,6 +93,19 @@ class Parser {
     }
 
     /**
+     * Define all vars into Dotenv file as PHP constants.
+     * 
+     * @return $this
+     */
+    public function define() {
+        foreach ($this->content as $name => $value) {
+            define($name, $value);
+        }
+
+        return $this;
+    }
+
+    /**
      * Unset all empty constant except if value === false.
      * 
      * @return $this
