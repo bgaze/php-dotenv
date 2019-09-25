@@ -36,7 +36,7 @@ Dotenv::load('path/to/dotenv/file')   // Load a dotenv file
 
 If you want to get parsing errors, instanciate the parser manually:
 
-```
+```php
 $dotenv = new Dotenv('path/to/dotenv/file');
 
 if ($dotenv->valid()) {
