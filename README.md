@@ -13,7 +13,7 @@ composer require bgaze/php-dotenv
 ## Usage
 
 To quickly parse a Dotenv file, use the `load` helper.  
-An `UnexpectedValueException` will be raised if the file is invalid. 
+An exception will be raised if the file is invalid. 
 
 ```php
 use Bgaze\Dotenv\Parser as Dotenv;
@@ -27,13 +27,13 @@ try {
 }
 ```
 
-You can use fluently most a available methods to manipulate your configuration:
+You can use fluently most of available methods to manipulate your configuration:
 
 ```php
-Dotenv::load('path/to/dotenv/file')   // Load a dotenv file
-    ->defaults([ /* ... */ ])         // Set some default values
-    ->trim()                          // Remove empty vars.
-    ->define();                       // Create PHP constants.
+echo Dotenv::load('path/to/dotenv/file')   // Load a dotenv file
+    ->defaults([ /* ... */ ])              // Set some default values
+    ->trim()                               // Remove empty vars.
+    ->toJson(JSON_PRETTY_PRINT);           // Encode as prettified JSON.
 ```
 
 To access to parsing errors, instanciate the parser manually:
@@ -99,17 +99,6 @@ See [json_encode](http://php.net/manual/en/function.json-encode.php) PHP functio
  * @return string Returns a JSON encoded string on success or FALSE on failure
  */
 public function toJson($flags = 0);
-```
-
-**define:**
-
-Define all vars into Dotenv file as PHP constants.
-
-```php
-/**
- * @return $this
- */
-public function define();
 ```
 
 **trim:**
