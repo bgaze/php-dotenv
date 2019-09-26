@@ -7,7 +7,7 @@ namespace Bgaze\Dotenv;
  *
  * @author Bgaze <benjamin@bgaze.fr>
  */
-class Dotenv {
+class Helpers {
 
     /**
      * Parse provided string, throw an exception if invalid, otherwise return parsed content as a key-value array.

@@ -12,19 +12,19 @@ composer require bgaze/php-dotenv
 
 ## Usage
 
-To quickly parse Dotenv, use helper functions from the `Dotenv` class:  
+To quickly parse Dotenv, use helper functions from the `Helpers` class:  
 
 ```php
-use \Bgaze\Dotenv\Dotenv;
+use \Bgaze\Dotenv\Helpers as DotEnv;
 
 try {
-    var_dump(Dotenv::fromString('a dotenv string', [ /* some default values */ ]));
+    var_dump(DotEnv::fromString('a dotenv string', [ /* some default values */ ]));
 } catch (\Exception $e) {
     echo "<pre>{$e}</pre>";
 }
 
 try {
-    var_dump(Dotenv::fromFile('path/to/dotenv/file', [ /* some default values */ ]));
+    var_dump(DotEnv::fromFile('path/to/dotenv/file', [ /* some default values */ ]));
 } catch (\Exception $e) {
     echo "<pre>{$e}</pre>";
 }
@@ -52,7 +52,7 @@ if ($parser->parseFile('path/to/dotenv/file')) {
 
 ## Documentation
 
-### Dotenv class
+### Helpers class
 
 **fromString:**
 
