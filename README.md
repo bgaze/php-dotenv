@@ -1,6 +1,6 @@
 # php-dotenv
 
-This library is a simple and standalone DotEnv files parser for PHP 5.6+
+This library is a simple and standalone DotEnv parser for PHP 5.6+
 
 ## Installation
 
@@ -22,6 +22,7 @@ try {
 } catch (\Exception $e) {
     echo "<pre>{$e}</pre>";
 }
+
 try {
     var_dump(Dotenv::fromFile('path/to/dotenv/file', [ /* some default values */ ]));
 } catch (\Exception $e) {
@@ -53,9 +54,9 @@ if ($parser->parseFile('path/to/dotenv/file')) {
 
 ### Dotenv class
 
-**dotEnvString:**
+**fromString:**
 
-Parse provided string, throw an exception if invalid, otherwise return parse content as a key-value array.
+Parse provided string, throw an exception if invalid, otherwise return parsed content as a key-value array.
 
 ```php
 /**
@@ -68,9 +69,9 @@ Parse provided string, throw an exception if invalid, otherwise return parse con
 public static function fromString($string, array $defaults = []);
 ```
 
-**dotEnvFile:**
+**fromFile:**
 
-Parse provided file, throw an exception if invalid, otherwise return parse content as a key-value array.
+Parse provided file, throw an exception if invalid, otherwise return parsed content as a key-value array.
 
 ```php
 /**

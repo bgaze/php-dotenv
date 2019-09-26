@@ -10,7 +10,7 @@ namespace Bgaze\Dotenv;
 class Dotenv {
 
     /**
-     * Parse provided string, throw an exception if invalid, otherwise return parse content as a key-value array.
+     * Parse provided string, throw an exception if invalid, otherwise return parsed content as a key-value array.
      * 
      * @param string $string The string to parse
      * @param array $defaults An array of defaults values
@@ -42,7 +42,7 @@ class Dotenv {
     }
 
     /**
-     * Parse provided file, throw an exception if invalid, otherwise return parse content as a key-value array.
+     * Parse provided file, throw an exception if invalid, otherwise return parsed content as a key-value array.
      * 
      * @param string $path The file to parse
      * @param array $defaults An array of defaults values

@@ -3,7 +3,7 @@
 namespace Bgaze\Dotenv;
 
 /**
- * A simple and standalone DotEnv files parser for PHP 5.6+
+ * A simple and standalone DotEnv parser for PHP 5.6+
  *
  * @author Bgaze <benjamin@bgaze.fr>
  */
