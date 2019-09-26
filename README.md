@@ -42,9 +42,9 @@ To access to parsing errors, instanciate the parser manually:
 $dotenv = new Dotenv('path/to/dotenv/file');
 
 if ($dotenv->valid()) {
-    var_dump($dotenv->errors());
-} else {
     var_dump($dotenv->toArray());
+} else {
+    var_dump($dotenv->errors());
 }
 ```
 
