@@ -14,173 +14,76 @@ class Parser {
      * 
      * @var array 
      */
-    protected $content;
+    protected $content = [];
 
     /**
      * Parsing errors.
      * 
      * @var array 
      */
-    protected $errors;
+    protected $errors = [];
 
     /**
      * Current parsed line number.
      * 
      * @var integer 
      */
-    protected $line;
-
-    # INSTANTIATION
-    ############################################################################
+    protected $line = 0;
 
     /**
-     * Instantiate parser and parse a file if provided.
+     * Reset parser then parse provided string.
      * 
-     * @param mixed $path The path of a file to parse
-     */
-    public function __construct($path = null) {
-        if ($path) {
-            $this->parse($path);
-        }
-    }
-
-    /**
-     * Instantiate a Dotenv parser, parse provided file and throw an exception if invalid.
-     * 
-     * @param type $path
-     * @return \Bgaze\Dotenv\Parser
-     * @throws \InvalidArgumentException
-     * @throws \UnexpectedValueException
-     */
-    public static function load($path) {
-        if (!file_exists($path)) {
-            throw new \InvalidArgumentException("Dotenv file doesn't exists: $path");
-        }
-
-        $dotenv = new Parser($path);
-
-        if (!$dotenv->valid()) {
-            $count = count($dotenv->errors());
-            $errors = implode(' ', $dotenv->errors());
-            throw new \UnexpectedValueException("{$count} error(s) where detected into {$path} dotenv file. {$errors}");
-        }
-
-        return $dotenv;
-    }
-
-    # CONTENT MANAGEMENT
-    ############################################################################
-
-    /**
-     * Retrieve a value by its key.
-     * 
-     * @param string $key The key to find
-     * @param mixed $default A default value if the key doesn't exists
-     * @return mixed
-     */
-    public function get($key, $default = null) {
-        return isset($this->content[$key]) ? $this->content[$key] : $default;
-    }
-
-    /**
-     * Get parsed content as an array.
-     * 
-     * @return array
-     */
-    public function toArray() {
-        return $this->content;
-    }
-
-    /**
-     * Get parsed content encoded to json.
-     * 
-     * @param integer $flags Option flags for the json_encode function  
-     * @return string Returns a JSON encoded string on success or FALSE on failure
-     * 
-     * @see json_encode()
-     * @link http://php.net/manual/en/function.json-encode.php
-     */
-    public function toJson($flags = 0) {
-        return json_encode($this->content, $flags);
-    }
-
-    /**
-     * Unset all empty constant except if value === false.
-     * 
-     * @return $this
-     */
-    public function trim() {
-        foreach ($this->content as $k => $v) {
-            if ($v !== false && empty($v)) {
-                unset($this->content[$k]);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set default values for missing keys or non false empty values.
-     * 
-     * @param array $defaults The array of defaults values
-     * @return $this
-     */
-    public function defaults(array $defaults) {
-        foreach ($defaults as $k => $v) {
-            if (!isset($this->content[$k]) || (empty($this->content[$k]) && $v !== false)) {
-                $this->content[$k] = $v;
-            }
-        }
-
-        return $this;
-    }
-
-    # ERRORS MANAGEMENT
-    ############################################################################
-
-    /**
-     * Check if errors occurs while parsing the Dotenv file
-     * 
+     * @param string $string The string to parse
      * @return boolean
      */
-    public function valid() {
-        return empty($this->errors);
-    }
-
-    /**
-     * Get Dotenv file parsing errors
-     * 
-     * @return array
-     */
-    public function errors() {
-        return $this->errors;
-    }
-
-    # DOTENV FILE PARSING
-    ############################################################################
-
-    /**
-     * Reset parser then parse provided Dotenv file.
-     * 
-     * @param string $path Path oh the file to parse
-     */
-    public function parse($path) {
+    public function parseString($string) {
         // Reset.
         $this->line = 0;
         $this->content = [];
         $this->errors = [];
 
-        // Read the Dotenv file line by line.
-        $handle = fopen($path, 'r');
-        while (($line = fgets($handle))) {
-            // Trim line then parse it.
+        // Split the string into lines.
+        $lines = explode("\n", str_replace(["\r\n", "\n\r", "\r"], "\n", $string));
+
+        // Trim each line then parse it.
+        foreach ($lines as $line) {
             $this->line++;
             $this->parseLine(trim($line));
         }
-        fclose($handle);
 
         // Expand variables.
         $this->expandVariables();
+
+        // Return success status.
+        return empty($this->errors);
+    }
+
+    /**
+     * Reset parser then parse provided file.
+     * 
+     * @param string $path Path oh the file to parse
+     * @return boolean
+     */
+    public function parseFile($path) {
+        return $this->parseString(file_get_contents($path));
+    }
+
+    /**
+     * Get parsed content array.
+     * 
+     * @return array
+     */
+    public function get() {
+        return $this->content;
+    }
+
+    /**
+     * Get parsing errors array.
+     * 
+     * @return array
+     */
+    public function errors() {
+        return $this->errors;
     }
 
     /**

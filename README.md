@@ -12,147 +12,122 @@ composer require bgaze/php-dotenv
 
 ## Usage
 
-To quickly parse a Dotenv file, use the `load` helper.  
-An exception will be raised if the file is invalid. 
+To quickly parse Dotenv, use helper functions from the `Dotenv` class:  
 
 ```php
-use Bgaze\Dotenv\Parser as Dotenv;
+use \Bgaze\Dotenv\Dotenv;
 
 try {
-    $dotenv = Dotenv::load('path/to/dotenv/file');
-    var_dump($dotenv->toArray());
-    var_dump($dotenv->get('A_KEY', 'a-default-value'));
+    var_dump(Dotenv::fromString('a dotenv string', [ /* some default values */ ]));
+} catch (\Exception $e) {
+    echo "<pre>{$e}</pre>";
+}
+try {
+    var_dump(Dotenv::fromFile('path/to/dotenv/file', [ /* some default values */ ]));
 } catch (\Exception $e) {
     echo "<pre>{$e}</pre>";
 }
 ```
 
-You can use fluently most of available methods to manipulate your configuration:
+You can also use directly the `Parser` class:
 
 ```php
-echo Dotenv::load('path/to/dotenv/file')   // Load a dotenv file
-    ->defaults([ /* ... */ ])              // Set some default values
-    ->trim()                               // Remove empty vars.
-    ->toJson(JSON_PRETTY_PRINT);           // Encode as prettified JSON.
-```
+use \Bgaze\Dotenv\Parser;
 
-To access to parsing errors, instanciate the parser manually:
+$parser = new Parser();
 
-```php
-$dotenv = new Dotenv('path/to/dotenv/file');
-
-if ($dotenv->valid()) {
-    var_dump($dotenv->toArray());
+if ($parser->parseString('a dotenv string')) {
+    var_dump($parser->get());
 } else {
-    var_dump($dotenv->errors());
+    var_dump($parser->errors());
+}
+
+if ($parser->parseFile('path/to/dotenv/file')) {
+    var_dump($parser->get());
+} else {
+    var_dump($parser->errors());
 }
 ```
 
-## Available methods
+## Documentation
 
-**load:**
+### Dotenv class
 
-Instantiate a Dotenv parser, parse provided file and throw an exception if invalid.
+**dotEnvString:**
+
+Parse provided string, throw an exception if invalid, otherwise return parse content as a key-value array.
 
 ```php
 /**
- * @param type $path
- * @return \Bgaze\Dotenv\Parser
+ * @param string $string The string to parse
+ * @param array $defaults An array of defaults values
+ * @return array The parsed content
+ * 
+ * @throws \UnexpectedValueException
+ */
+public static function fromString($string, array $defaults = []);
+```
+
+**dotEnvFile:**
+
+Parse provided file, throw an exception if invalid, otherwise return parse content as a key-value array.
+
+```php
+/**
+ * @param string $path The file to parse
+ * @param array $defaults An array of defaults values
+ * @return array The parsed content
+ * 
  * @throws \InvalidArgumentException
  * @throws \UnexpectedValueException
  */
-public static function load($path); 
+public static function fromFile($path, array $defaults = []);
+```
+
+### Parser class
+
+**parseString:**
+
+Reset parser then parse provided string.
+
+```php
+/**
+ * @param string $string The string to parse
+ * @return boolean
+ */
+public function parseString($string);
+```
+
+**parseFile:**
+
+Reset parser then parse provided file.
+
+```php
+/**
+ * @param string $path Path oh the file to parse
+ * @return boolean
+ */
+public function parseFile($path);
 ```
 
 **get:**
 
-Retrieve a value by its key.
-
-```php
-/**
-* @param string $key The key to find
-* @param mixed $default A default value if the key doesn't exists
-* @return mixed
- */
-public function get($key, $default = null);
-```
-
-**toArray:**
-
-Get parsed content as an array.
+Get parsed content array.
 
 ```php
 /**
  * @return array
  */
-public function toArray();
-```
-
-**toJson:**
-
-Get parsed content encoded to json.  
-See [json_encode](http://php.net/manual/en/function.json-encode.php) PHP function for flags usage.
-
-```php
-/**
- * @param integer $flags Option flags for the json_encode function  
- * @return string Returns a JSON encoded string on success or FALSE on failure
- */
-public function toJson($flags = 0);
-```
-
-**trim:**
-
-Unset all empty constant except if value === false.
-
-```php
-/**
- * @return $this
- */
-public function trim();
-```
-
-**defaults:**
-
-Set default values for missing keys or non false empty values.
-
-```php
-/**
- * @param array $defaults The array of defaults values
- * @return $this
- */
-public function defaults(array $defaults);
-```
-
-**valid:**
-
-Check if errors occurs while parsing the Dotenv file
-
-```php
-/**
- * @return boolean
- */
-public function valid();
+public function get();
 ```
 
 **errors:**
 
-Get Dotenv file parsing errors
+Get parsing errors array.
 
 ```php
 /**
  * @return array
  */
 public function errors();
-```
-
-**parse:**
-
-Reset parser then parse provided Dotenv file.
-
-```php
-/**
- * @param string $path Path oh the file to parse
- */
-public function parse($path);
 ```
