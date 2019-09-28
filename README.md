@@ -1,6 +1,9 @@
 # php-dotenv
 
-This library is a simple and standalone DotEnv parser for PHP 5.6+
+This library is a simple and standalone DotEnv parser for PHP 5.6+  
+
+It sticks to a unique goal : parse a Dotenv string/file and restitute it as a name => value array of variables.  
+It ships a main `Parser` class, wich do the parsing job, and a `Helpers` class wich provide static function to quicly parse Dotenv.  
 
 ## Installation
 
