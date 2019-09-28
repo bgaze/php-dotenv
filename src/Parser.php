@@ -34,7 +34,7 @@ class Parser {
      * Reset parser then parse provided string.
      * 
      * @param string $string The string to parse
-     * @return boolean
+     * @return boolean Success status of parsing
      */
     public function parseString($string) {
         // Reset.
@@ -62,7 +62,7 @@ class Parser {
      * Reset parser then parse provided file.
      * 
      * @param string $path Path oh the file to parse
-     * @return boolean
+     * @return boolean Success status of parsing
      */
     public function parseFile($path) {
         return $this->parseString(file_get_contents($path));
