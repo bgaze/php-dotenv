@@ -1,12 +1,12 @@
 # php-dotenv
 
-This library is a simple and standalone DotEnv parser for PHP 5.6+ wich sticks to a unique goal : parse a Dotenv string/file and restitute it as a `name => value` array of variables.
+A simple and standalone DotEnv parser for PHP 5.6+ wich sticks to a unique goal : parse a Dotenv string/file and restitute it as an array of variables.
 
-It ships only two classes :
-- `Bgaze\Dotenv\Parser` wich do the parsing job.
-- `Bgaze\Dotenv\Helpers` wich provides static functions for a quick usage of the parser.
+## Documentation
 
-## Installation
+Full documentation is available at [https://packages.bgaze.fr/php-dotenv](https://packages.bgaze.fr/php-dotenv)
+
+## Quick start
 
 Simply install the library using composer:
 
@@ -14,125 +14,15 @@ Simply install the library using composer:
 composer require bgaze/php-dotenv
 ```
 
-## Usage
-
-To quickly parse Dotenv, use helper functions from the `Helpers` class:  
+Use the `Helpers` class to parse DotenEnv file or string:  
 
 ```php
 use \Bgaze\Dotenv\Helpers as DotEnv;
 
 try {
     var_dump(DotEnv::fromString('a dotenv string', [ /* some default values */ ]));
-} catch (\Exception $e) {
-    echo "<pre>{$e}</pre>";
-}
-
-try {
     var_dump(DotEnv::fromFile('path/to/dotenv/file', [ /* some default values */ ]));
 } catch (\Exception $e) {
     echo "<pre>{$e}</pre>";
 }
-```
-
-You can also use directly the `Parser` class:
-
-```php
-use \Bgaze\Dotenv\Parser;
-
-$parser = new Parser();
-
-if ($parser->parseString('a dotenv string')) {
-    var_dump($parser->get());
-} else {
-    var_dump($parser->errors());
-}
-
-if ($parser->parseFile('path/to/dotenv/file')) {
-    var_dump($parser->get());
-} else {
-    var_dump($parser->errors());
-}
-```
-
-## Documentation
-
-### Helpers class
-
-**fromString:**
-
-Parse provided string, throw an exception if invalid, otherwise return parsed content as a key-value array.
-
-```php
-/**
- * @param string $string The string to parse
- * @param array $defaults An array of defaults values
- * @return array The parsed content
- * 
- * @throws \UnexpectedValueException
- */
-public static function fromString($string, array $defaults = []);
-```
-
-**fromFile:**
-
-Parse provided file, throw an exception if invalid, otherwise return parsed content as a key-value array.
-
-```php
-/**
- * @param string $path The file to parse
- * @param array $defaults An array of defaults values
- * @return array The parsed content
- * 
- * @throws \InvalidArgumentException
- * @throws \UnexpectedValueException
- */
-public static function fromFile($path, array $defaults = []);
-```
-
-### Parser class
-
-**parseString:**
-
-Reset parser then parse provided string.
-
-```php
-/**
- * @param string $string The string to parse
- * @return boolean
- */
-public function parseString($string);
-```
-
-**parseFile:**
-
-Reset parser then parse provided file.
-
-```php
-/**
- * @param string $path Path oh the file to parse
- * @return boolean
- */
-public function parseFile($path);
-```
-
-**get:**
-
-Get parsed content array.
-
-```php
-/**
- * @return array
- */
-public function get();
-```
-
-**errors:**
-
-Get parsing errors array.
-
-```php
-/**
- * @return array
- */
-public function errors();
 ```
